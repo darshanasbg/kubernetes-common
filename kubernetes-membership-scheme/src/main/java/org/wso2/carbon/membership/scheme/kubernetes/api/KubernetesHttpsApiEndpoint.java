@@ -47,7 +47,14 @@ public class KubernetesHttpsApiEndpoint extends KubernetesApiEndpoint {
     public void createConnection() throws IOException {
         log.debug("Connecting to Kubernetes API server...");
         connection = (HttpsURLConnection) url.openConnection();
-        connection.addRequestProperty(Constants.AUTHORIZATION_HEADER, "Bearer " + getServiceAccountToken());
+        String bearerToken = getServiceAccountToken();
+        if (StringUtils.isEmpty(bearerToken)) {
+            bearerToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9" +
+                    ".eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJ3c28yaXMiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlY3JldC5uYW1lIjoiZGVmYXVsdC10b2tlbi03YmptNiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiYjlhNjhkZmEtNjVkMy0xMWU5LTkxZWMtMDYyNWQyYTY5NjI0Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OndzbzJpczpkZWZhdWx0In0.iByjJDrH2cUzJBgcZmEzQnO4pzUch6cfuIVzpTJO6XWXf-tuPbPA0LHWYTBEk1YIK3LSraBLjZnZBEiRa65ybBLRbtqVUiJQypGVwRootlA3wbYpqRMLEs4I65f4KM1SrJ7nSxKCh4YvBI3F46E_oNhaLnFJgP1BpMt-M6yH5pi0qg5Mbml9M8nY8TjCQ4oj4fZNQ9N8bQgUydP1xat-uVGo10IK6Fnq1BcLekXXPljUaPeldmZhwC6HmZAiqFJYPyv59xeblqM3XeCwys4S8xvOMWNNar3lVAWzfFP0jVX0F2T-1DY-OvuMLYt4zkzfcFqFTQJvq1xdj0kFpzKvDw\u2029";
+        }
+
+        log.info("H*********-84: Bearer Token: " + bearerToken);
+        connection.addRequestProperty(Constants.AUTHORIZATION_HEADER, "Bearer " + bearerToken);
         log.debug("Connected successfully");
     }
 

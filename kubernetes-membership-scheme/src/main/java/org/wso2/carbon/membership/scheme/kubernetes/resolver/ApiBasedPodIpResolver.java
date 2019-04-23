@@ -158,8 +158,12 @@ public class ApiBasedPodIpResolver extends AddressResolver {
                             }
                         }
                     }
+                } else {
+                    log.info("H*********-84: endpoints.getSubsets(): " + endpoints.getSubsets());
+                    log.info("H*********-84: endpoints.getSubsets().isEmpty(): " + endpoints.getSubsets().isEmpty());
                 }
             } else {
+                log.info("H*********-84: endpoints is " + endpoints);
                 throw new KubernetesMembershipSchemeException("No endpoints found at " + apiEndpointUrl.toString());
             }
         }

@@ -42,6 +42,7 @@ public abstract class KubernetesApiEndpoint {
 
 
     public InputStream read() throws IOException {
+        log.info("H*********-84: response code: " + connection.getResponseCode() + ", response message: " + connection.getResponseMessage());
         return connection.getInputStream();
     }
 
